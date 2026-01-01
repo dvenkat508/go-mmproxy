@@ -126,7 +126,7 @@ func PROXYReadRemoteAddr(buf []byte, protocol Protocol) (net.Addr, net.Addr, []b
 	}
 
 	// PROXYv1 only works with TCP
-	if protocol == TCP && len(buf) >= 8 && bytes.Equal(buf[:5], []byte("PROXY")) {
+	if len(buf) >= 8 && bytes.Equal(buf[:5], []byte("PROXY")) {
 		saddr, daddr, rest, err := readRemoteAddrPROXYv1(buf)
 		if err != nil {
 			return nil, nil, nil, fmt.Errorf("failed to parse PROXY v1 header: %s", err.Error())
